@@ -11,7 +11,7 @@ export default function Feature({ news }) {
       <div className="row g-5 flex-wrap">
         {news.map((item, i) => (
           <>
-            <div className="col-md-4 mb-5">
+            <div key={i} className="col-md-4 mb-5">
               <div className="d-flex">
                 <div>
                   <h4 className="trend-number">0{i + 1}</h4>

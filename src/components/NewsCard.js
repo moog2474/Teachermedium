@@ -12,8 +12,11 @@ export default function NewsCard({
     read,
     createdUser: { firstName, lastName, organization, userImg },
     date,
+    isSaved,
   },
   list,
+  user,
+  saveBookmark,
 }) {
   const newsTitle = {
     fontFamily: "Helvetica Neue",
@@ -37,7 +40,9 @@ export default function NewsCard({
             </>
           )}
         </div>
-        <h1 style={newsTitle}>{title}</h1>
+        <a href={`/newsdetails/${id}`}>
+          <h1 style={newsTitle}>{title}</h1>
+        </a>
         {list && <p className="news-body">{body}</p>}
         <div className=" desc d-flex align-items-center justify-content-flex-start">
           <span>{showDate(new Date(date))}</span>
@@ -49,6 +54,18 @@ export default function NewsCard({
               <div className="rounded-pill bg-light">
                 <span className="desc m-3">{category}</span>
               </div>
+            </>
+          )}
+          {user && (
+            <>
+              <span className="point"></span>
+              <span onClick={() => saveBookmark(id)}>
+                <i
+                  class={
+                    isSaved ? "bi bi-bookmark-heart-fill" : "bi bi-bookmark"
+                  }
+                ></i>
+              </span>
             </>
           )}
         </div>

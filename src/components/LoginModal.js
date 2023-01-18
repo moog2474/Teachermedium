@@ -1,9 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function LoginModal({ showModal, setShowModal, onLogin }) {
+export default function LoginModal({
+  showModal,
+  setShowModal,
+  onLogin,
+  setAdmin,
+}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   const style = { display: showModal ? "block" : "none" };
 
   return (
@@ -31,14 +37,24 @@ export default function LoginModal({ showModal, setShowModal, onLogin }) {
             </div>
             <div className="mb-3">
               <button
-                className="btn btn-light"
+                className="btn btn-light pe-4"
                 onClick={() => onLogin(username, password)}
               >
                 Login
               </button>
-              <button className="btn btn-secondary" onClick={setShowModal}>
+
+              <button className="btn btn-secondary pe-4" onClick={setShowModal}>
                 Close
               </button>
+
+              <span
+                onClick={() => {
+                  setAdmin(true);
+                  navigate("/login");
+                }}
+              >
+                Go to admin login
+              </span>
             </div>
           </div>
         </div>

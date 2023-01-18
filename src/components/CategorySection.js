@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CategorySection() {
+export default function CategorySection({ filterCategory }) {
   const catNews = ["Technology", "Data Science", "Productivity", "Politics"];
   const descriptions = [
     "Help",
@@ -16,9 +16,13 @@ export default function CategorySection() {
   return (
     <div className="my-4">
       <div className="d-flex flex-wrap">
-        {catNews.map((c) => {
+        {catNews.map((c, i) => {
           return (
-            <div className="categoryCard m-1">
+            <div
+              key={i}
+              className="categoryCard m-1"
+              onClick={() => filterCategory(c)}
+            >
               <h3 className="categoryText">{c}</h3>
             </div>
           );
@@ -26,9 +30,9 @@ export default function CategorySection() {
       </div>
       <hr />
       <div className="d-flex flex-wrap">
-        {descriptions.map((c) => {
+        {descriptions.map((c, i) => {
           return (
-            <div className="mr-5">
+            <div key={i} className="mr-5">
               <h3 className="categoryText">{c}</h3>
             </div>
           );

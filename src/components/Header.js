@@ -10,6 +10,7 @@ export default function Header({
   setUser,
   showModal,
   openModal,
+  setAdmin,
 }) {
   const cates = [
     { id: 1, title: "Our story", link: "about" },
@@ -36,7 +37,7 @@ export default function Header({
                 <li className="list-item" key={index}>
                   {a.id == 4 ? (
                     user ? (
-                      user
+                      user.firstName
                     ) : (
                       <span className="btn btn-primary" onClick={openModal}>
                         {a.title}
@@ -52,7 +53,7 @@ export default function Header({
             ))}
 
             {user && (
-              <button className="btn btn-warning" onClick={() => setUser("")}>
+              <button className="btn btn-warning" onClick={() => setUser({})}>
                 Log Out
               </button>
             )}
@@ -64,6 +65,7 @@ export default function Header({
         showModal={showModal}
         onLogin={onLogin}
         setShowModal={openModal}
+        setAdmin={setAdmin}
       />
     </div>
   );

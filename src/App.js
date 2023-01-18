@@ -5,12 +5,16 @@ import Footer from "./components/Footer";
 import Main from "./components/Main";
 import ImageSection from "./components/ImageSection";
 import { Routes, Route } from "react-router-dom";
-// import news from "./components/data";
+import { users } from "./components/data";
+import NewsDetail from "./components/NewsDetail";
+import Login from "./components/admin/Login";
+import Admin from "./components/admin/Admin";
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState();
   const [showModal, setShowModal] = useState(false);
+  const [admin, setAdmin] = useState(false);
 
   const [bgColor, setBgColor] = useState(user ? "white" : "#ffc017");
   const objStyle = {
@@ -31,42 +35,58 @@ const App = () => {
     setShowModal(!showModal);
   };
 
-  const onLogin = (username, password) => {
-    if (username == "Bold" && password == "qweqwe") {
-      setShowModal(false);
-      setUser(username);
-    } else {
-      alert("Tanii ner eswel password buruu bnaa, zasna uu");
-    }
+  const onLogin = (uname, pword) => {
+    users.map((userObj) => {
+      if (userObj.username == uname && userObj.password == pword) {
+        setShowModal(false);
+        setUser(userObj);
+
+        return "success";
+      }
+    });
   };
 
   return (
-    <div
-      style={{ width: "100vw", overflow: "scroll", height: "100vh" }}
-      onScroll={handleScroll}
-    >
-      <Header
-        style={objStyle}
-        onLogin={onLogin}
-        user={user}
-        setUser={setUser}
-        showModal={showModal}
-        openModal={openModal}
-      />
-
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              {!user && <ImageSection />}
-              <Main />
-            </>
-          }
-        />
-        <Route path="/about" element={<About />} />
-      </Routes>
-      <Footer />
+    <div>
+      {!admin ? (
+        <div
+          style={{ width: "100vw", overflow: "scroll", height: "100vh" }}
+          onScroll={handleScroll}
+        >
+          <Header
+            style={objStyle}
+            onLogin={onLogin}
+            user={user}
+            setUser={setUser}
+            showModal={showModal}
+            openModal={openModal}
+            setAdmin={setAdmin}
+          />
+          <div>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    {!user && <ImageSection />}
+                    <Main user={user} />
+                  </>
+                }
+              />
+              <Route path="/about" element={<About />} />
+              <Route path="/newsdetails/:id" element={<NewsDetail />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
+      ) : (
+        <div>
+          <Routes>
+            <Route exact path="/login" element={<Login />} />
+            <Route path="/admin" element={<Admin />} />
+          </Routes>
+        </div>
+      )}
     </div>
   );
 };
