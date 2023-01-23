@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react"
 import { BarChart } from './BarChart'
 import { PieChart } from './PieChart'
+import User from '../admin/User'
 export default function Admin() {
   const [data, setData] = useState([]);
+  const [err, setErr] = useState("")
 
   useEffect(() => {
-    fetch("http://192.168.1.50:4040/news")
+    fetch("https://medium-api-psi.vercel.app/api/news")
       .then((response) => response.json())
       .then((dt) => {
-        console.log(dt.news);
-        setData(dt.news);
+        console.log(dt.result);
+        setData(dt.result);
       })
+      .catch((err) => setErr(console.log(err)))
   }, [])
 
 
@@ -31,13 +34,13 @@ export default function Admin() {
         <div className="col-md-3">
           <div className="nav bg-light flex-column">
             <div className="nav-item">
-              <a className="nav-link">Dashboard </a>
+              <a className="nav-link" href="#">Dashboard </a>
             </div>
             <div className="nav-item">
-              <a className="nav-link">News</a>
+              <a className="nav-link" href="#">News</a>
             </div>
             <div className="nav-item">
-              <a className="nav-link">User</a>
+              <a onClick={User} className="nav-link" href="#">User</a>
             </div>
           </div>
         </div>
