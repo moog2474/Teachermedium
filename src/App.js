@@ -9,7 +9,10 @@ import { users } from "./components/data";
 import NewsDetail from "./components/NewsDetail";
 import Login from "./components/admin/Login";
 import Admin from "./components/admin/Admin";
+import News from "./components/admin/News"
 import User from "./components/admin/User";
+import AdminLayout from "./components/admin/AdminLayout";
+
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -84,7 +87,9 @@ const App = () => {
         <div>
           <Routes>
             <Route exact path="/login" element={<Login />} />
-            <Route path="/admin" element={<Admin />}>
+            <Route element={<AdminLayout />}>
+              <Route index path="/admin" element={<Admin />} />
+              <Route path="/admin/news" element={<News />} />
               <Route path="/admin/user" element={<User />} />
             </Route>
 
